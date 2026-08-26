@@ -1,11 +1,40 @@
 import asyncio
 from playwright.async_api import async_playwright
+import pytesseract
+from PIL import Image
+
+async def click_text_on_image(page, target_text):
+    # 1. Simpan screenshot sementara untuk dianalisis
+    screenshot_path = "temp_page.png"
+    await page.screenshot(path=screenshot_path)
+
+    # 2. Baca gambar menggunakan Tesseract OCR untuk mendapatkan data posisi teks
+    img = Image.open(screenshot_path)
+    ocr_data = pytesseract.image_to_data(img, output_type=pytesseract.Output.DICT)
+
+    found = False
+    # 3. Cari kata target di dalam hasil OCR
+    for i in range(len(ocr_data['text'])):
+        text = ocr_data['text'][i].strip()
+        if target_text.lower() in text.lower() and int(ocr_data['conf'][i]) > 30: # Tingkat akurasi > 30%
+            # Hitung titik tengah koordinat (X, Y) dari teks
+            x = ocr_data['left'][i] + (ocr_data['width'][i] // 2)
+            y = ocr_data['top'][i] + (ocr_data['height'][i] // 2)
+            
+            print(f"Teks '{target_text}' ditemukan pada koordinat X:{x}, Y:{y}. Melakukan klik...")
+            
+            # 4. Klik koordinat layar tersebut
+            await page.mouse.click(x, y)
+            found = True
+            break
+
+    if not found:
+        print(f"Teks '{target_text}' tidak ditemukan pada gambar/canvas.")
 
 async def main():
     async with async_playwright() as p:
-        # Buka browser headless (tanpa tampilan visual di server)
         browser = await p.chromium.launch(headless=True)
-        page = await browser.new_page()
+        page = await browser.new_page(viewport={'width': 1280, 'height': 720})
 
         # 1. Buka halaman website
         print("Membuka halaman website...")
@@ -16,8 +45,8 @@ async def main():
         print("Mengisi formulir...")
         # await page.fill("#Nama", "user_anda")
         # await page.fill("#Email", "email_anda")
-        await page.fill("#profile_name", "Player001")
-        await page.fill("#profile_email", "o.player001@gmail.com")
+        await page.fill("#profile_name", "Player002")
+        await page.fill("#profile_email", "o.player002@gmail.com")
         await page.fill("#profile_company_name", "Indonesia")
         await page.fill("#profile_occupation", "Boss")
         await page.fill("#profile_phone_number", "082288997788")
@@ -34,6 +63,12 @@ async def main():
         # Tunggu proses pemuatan setelah klik (opsional)
         await page.wait_for_timeout(2000)
         await page.screenshot(path="03_halaman_awal.png")
+        await asyncio.sleep(3) # Tunggu elemen/canvas termuat sempurna
+
+        # Panggil fungsi klik berdasarkan teks di dalam gambar/canvas
+        await click_text_on_image(page, "Mengerti")
+        await page.wait_for_timeout(2000)
+        await page.screenshot(path="04_halaman_awal.png")
         print("Proses otomatis selesai!")
         await browser.close()
 
