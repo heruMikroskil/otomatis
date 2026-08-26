@@ -8,22 +8,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install Tesseract
+      - name: Install Tesseract OCR
         run: |
           sudo apt-get update
-          sudo apt-get install -y tesseract-ocr tesseract-ocr-ind
+          sudo apt-get install -y \
+            tesseract-ocr \
+            tesseract-ocr-ind
 
-      - name: Install Python packages
+      - name: Install Python Dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install pytesseract pillow
 
-      - name: Verify installation
+      - name: Verify Installation
         run: |
           tesseract --version
-          tesseract --list-langs
+          python -c "import pytesseract; import PIL; print('OK')"
