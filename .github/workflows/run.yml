@@ -28,3 +28,10 @@ jobs:
 
       - name: Jalankan Bot Python
         run: python bot.py
+# LANGKAH UNTUK MENYIMPAN PREVIEW SCREENSHOT
+      - name: Simpan Preview Screenshot
+        if: always() # Tetap simpan foto meskipun skrip error di tengah jalan
+        uses: actions/upload-artifact@v4
+        with:
+          name: bot-screenshots
+          path: "*.png"
