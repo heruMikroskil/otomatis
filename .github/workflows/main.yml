@@ -1,0 +1,30 @@
+name: Bot Form Otomatis
+
+on:
+  # Memungkinkan bot dijalankan manual dari tombol di GitHub
+  workflow_dispatch:
+  
+  # Jalankan otomatis sesuai jadwal (contoh: Setiap jam 08:00 WIB / 01:00 UTC)
+  schedule:
+    - cron: '0 1 * * *'
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install playwright
+          playwright install chromium --with-deps
+
+      - name: Jalankan Bot Python
+        run: python bot.py
