@@ -1,0 +1,29 @@
+name: OCR
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-ocr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Tesseract
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-ind
+
+      - name: Install Python packages
+        run: |
+          pip install pytesseract pillow
+
+      - name: Verify installation
+        run: |
+          tesseract --version
+          tesseract --list-langs
