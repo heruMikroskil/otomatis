@@ -34,7 +34,7 @@ async def click_text_on_image(page, target_text):
 async def main():
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-        page = await browser.new_page(viewport={'width': 1280, 'height': 720})
+        page = await browser.new_page(viewport={'width': 720, 'height': 1280})
 
         # 1. Buka halaman website
         print("Membuka halaman website...")
@@ -45,8 +45,8 @@ async def main():
         print("Mengisi formulir...")
         # await page.fill("#Nama", "user_anda")
         # await page.fill("#Email", "email_anda")
-        await page.fill("#profile_name", "Player002")
-        await page.fill("#profile_email", "o.player002@gmail.com")
+        await page.fill("#profile_name", "Player003")
+        await page.fill("#profile_email", "o.player003@gmail.com")
         await page.fill("#profile_company_name", "Indonesia")
         await page.fill("#profile_occupation", "Boss")
         await page.fill("#profile_phone_number", "082288997788")
