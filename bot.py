@@ -33,7 +33,7 @@ async def click_text_on_image(page, target_text):
 
 async def main():
     async with async_playwright() as p:
-        nama = "Player28"
+        nama = "Player29"
         email = "o." + nama + "@gmail.com"
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page(viewport={'width': 720, 'height': 1280})
@@ -79,14 +79,15 @@ async def main():
         #Close banner
         await page.mouse.click(593, 530)
         await page.wait_for_timeout(2000)
-        #await page.screenshot(path="05.png")
         print("Close banner selesai")
-        await page.mouse.click(512, 1230)
+
+        #Klik Mengerti cookies
+        await page.mouse.click(620, 1236)
         await page.wait_for_timeout(3000)
         #Masukk Hall
         await page.mouse.click(277, 654)
         await page.wait_for_timeout(2000)
-        #await page.screenshot(path="06.png")
+        await page.screenshot(path="05.png")
         print("Masuk Hall selesai")
         
 
@@ -110,23 +111,22 @@ async def main():
         #Live chat
         await page.mouse.click(360, 669)
         await page.wait_for_timeout(2000)
-        await page.screenshot(path="11.png")
-        await page.mouse.click(620, 1236)
-        #Hilangkan cookies
-        await page.wait_for_timeout(3000)
+        #await page.screenshot(path="11.png")
         await page.screenshot(path="12.png")
 
         #aktif chat
-        
+        await page.wait_for_timeout(3000)
+        await page.mouse.click(512, 1230)
         await page.wait_for_timeout(1000)
         await page.screenshot(path="13.png")
+        
         #Ketik pesan
         await page.wait_for_timeout(5000)
         await page.keyboard.type("Halo admin")
         await page.screenshot(path="14.png")
-        await page.wait_for_timeout(2000)
-        await page.keyboard.press("Enter")
         await page.wait_for_timeout(1000)
+        await page.keyboard.press("Enter")
+        await page.wait_for_timeout(3000)
         await page.screenshot(path="15.png")
         await browser.close()
 
