@@ -33,7 +33,7 @@ async def click_text_on_image(page, target_text):
 
 async def main(n):
     async with async_playwright() as p:
-        nama = "Player" + str(n)
+        nama = "Player_" + str(n)
         email = "Thu." + nama + "@gmail.com"
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page(viewport={'width': 720, 'height': 1280})
@@ -128,7 +128,7 @@ async def main(n):
         #await page.keyboard.press("Enter")
         #await page.wait_for_timeout(3000)
         #await page.screenshot(path="15.png")
-        await browser_context.close()
+        await browser.close()
 
 if __name__ == "__main__":
     for i in range (150):
