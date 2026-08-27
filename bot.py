@@ -66,7 +66,7 @@ async def main():
         await asyncio.sleep(3) # Tunggu elemen/canvas termuat sempurna
 
         # Panggil fungsi klik berdasarkan teks di dalam gambar/canvas
-        //await click_text_on_image(page, "Lewati")
+        #await click_text_on_image(page, "Lewati")
         await page.mouse.click(360, 1008)
         await page.wait_for_timeout(2000)
         await page.screenshot(path="04_halaman_awal.png")
