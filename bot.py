@@ -33,7 +33,7 @@ async def click_text_on_image(page, target_text):
 
 async def main():
     async with async_playwright() as p:
-        nama = "Player17"
+        nama = "Player18"
         email = "o." + nama + "@gmail.com"
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page(viewport={'width': 720, 'height': 1280})
@@ -106,6 +106,9 @@ async def main():
         await page.wait_for_timeout(2000)
         await page.screenshot(path="11.png")
         await page.mouse.click(620, 1236)
+        #aktif aktif
+        await page.wait_for_timeout(2000)
+        await page.mouse.click(516, 1223)
         #Ketik pesan
         await page.wait_for_timeout(1000)
         await page.keyboard.type("Halo saya"+nama)
