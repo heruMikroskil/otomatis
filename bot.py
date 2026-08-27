@@ -33,7 +33,7 @@ async def click_text_on_image(page, target_text):
 
 async def main():
     async with async_playwright() as p:
-        nama = "Player25"
+        nama = "Player26"
         email = "o." + nama + "@gmail.com"
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page(viewport={'width': 720, 'height': 1280})
@@ -83,6 +83,8 @@ async def main():
         await page.wait_for_timeout(2000)
         #await page.screenshot(path="06.png")
         print("Masuk Hall selesai")
+        await page.wait_for_timeout(3000)
+        await page.mouse.click(512, 1230)
 
         #Filter booth
         await page.mouse.click(420, 30)
@@ -111,8 +113,7 @@ async def main():
         await page.screenshot(path="12.png")
 
         #aktif chat
-        await page.wait_for_timeout(3000)
-        await page.mouse.click(512, 1230)
+        
         await page.wait_for_timeout(1000)
         await page.screenshot(path="13.png")
         #Ketik pesan
