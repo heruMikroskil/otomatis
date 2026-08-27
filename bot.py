@@ -93,6 +93,14 @@ async def main():
         await page.keyboard.press("Enter")
         await page.wait_for_timeout(3000)
         await page.screenshot(path="09.png")
+
+        #Whatsapp
+        await page.mouse.click(370, 770)
+        await page.wait_for_timeout(2000)
+        await page.screenshot(path="10.png")
+        
+        await page.wait_for_timeout(2000)
+        await page.screenshot(path="11.png")
         
         await browser.close()
 
