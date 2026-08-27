@@ -31,10 +31,10 @@ async def click_text_on_image(page, target_text):
     if not found:
         print(f"Teks '{target_text}' tidak ditemukan pada gambar/canvas.")
 
-async def main():
+async def main(n):
     async with async_playwright() as p:
-        nama = "Player29"
-        email = "o." + nama + "@gmail.com"
+        nama = "Player" + str(n)
+        email = "Thu." + nama + "@gmail.com"
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page(viewport={'width': 720, 'height': 1280})
 
@@ -74,7 +74,7 @@ async def main():
         await page.wait_for_timeout(2000)
         
        
-        await page.screenshot(path="04.png")
+        #await page.screenshot(path="04.png")
         print("Lewati Selesai")
         #Close banner
         await page.mouse.click(593, 530)
@@ -87,7 +87,7 @@ async def main():
         #Masukk Hall
         await page.mouse.click(277, 654)
         await page.wait_for_timeout(2000)
-        await page.screenshot(path="05.png")
+        #await page.screenshot(path="05.png")
         print("Masuk Hall selesai")
         
 
@@ -112,23 +112,24 @@ async def main():
         await page.mouse.click(360, 669)
         await page.wait_for_timeout(2000)
         #await page.screenshot(path="11.png")
-        await page.screenshot(path="12.png")
+        #await page.screenshot(path="12.png")
 
         #aktif chat
-        await page.wait_for_timeout(3000)
-        await page.mouse.click(512, 1230)
-        await page.wait_for_timeout(1000)
-        await page.screenshot(path="13.png")
+        #await page.wait_for_timeout(3000)
+        #await page.mouse.click(512, 1230)
+        #await page.wait_for_timeout(1000)
+        #await page.screenshot(path="13.png")
         
         #Ketik pesan
-        await page.wait_for_timeout(5000)
-        await page.keyboard.type("Halo admin")
-        await page.screenshot(path="14.png")
-        await page.wait_for_timeout(1000)
-        await page.keyboard.press("Enter")
-        await page.wait_for_timeout(3000)
-        await page.screenshot(path="15.png")
-        await browser.close()
+        #await page.wait_for_timeout(5000)
+        #await page.keyboard.type("Halo admin")
+        #await page.screenshot(path="14.png")
+        #await page.wait_for_timeout(1000)
+        #await page.keyboard.press("Enter")
+        #await page.wait_for_timeout(3000)
+        #await page.screenshot(path="15.png")
+        await browser_context.close()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    for i in range (150):
+     asyncio.run(main(i))
