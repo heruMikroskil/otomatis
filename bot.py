@@ -33,6 +33,8 @@ async def click_text_on_image(page, target_text):
 
 async def main():
     async with async_playwright() as p:
+        nama = "Player14"
+        email = "o." + nama + "@gmail.com"
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page(viewport={'width': 720, 'height': 1280})
 
@@ -45,8 +47,8 @@ async def main():
         print("Mengisi formulir...")
         # await page.fill("#Nama", "user_anda")
         # await page.fill("#Email", "email_anda")
-        await page.fill("#profile_name", "Player013")
-        await page.fill("#profile_email", "o.player013@gmail.com")
+        await page.fill("#profile_name", nama)
+        await page.fill("#profile_email", email)
         await page.fill("#profile_company_name", "Indonesia")
         await page.fill("#profile_occupation", "Boss")
         await page.fill("#profile_phone_number", "082288997788")
@@ -91,7 +93,7 @@ async def main():
         await page.wait_for_timeout(1000)
         await page.screenshot(path="08.png")
         await page.keyboard.press("Enter")
-        await page.wait_for_timeout(3000)
+        await page.wait_for_timeout(2000)
         await page.screenshot(path="09.png")
 
         #Whatsapp
@@ -103,7 +105,13 @@ async def main():
         await page.mouse.click(360, 669)
         await page.wait_for_timeout(2000)
         await page.screenshot(path="11.png")
-        
+
+        #Ketik pesan
+        await page.keyboard.type("Halo saya", nama)
+        await page.wait_for_timeout(1000)
+        await page.keyboard.press("Enter")
+        await page.wait_for_timeout(1000)
+        await page.screenshot(path="11.png")
         await browser.close()
 
 if __name__ == "__main__":
