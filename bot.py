@@ -98,7 +98,9 @@ async def main():
         await page.mouse.click(370, 770)
         await page.wait_for_timeout(2000)
         await page.screenshot(path="10.png")
-        
+
+        #Live chat
+        await page.mouse.click(360, 669)
         await page.wait_for_timeout(2000)
         await page.screenshot(path="11.png")
         
