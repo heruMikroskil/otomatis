@@ -33,7 +33,7 @@ async def click_text_on_image(page, target_text):
 
 async def main():
     async with async_playwright() as p:
-        nama = "Player26"
+        nama = "Player27"
         email = "o." + nama + "@gmail.com"
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page(viewport={'width': 720, 'height': 1280})
