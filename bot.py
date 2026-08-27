@@ -70,7 +70,12 @@ async def main():
         await page.mouse.click(360, 1008)
         await page.wait_for_timeout(2000)
         await page.screenshot(path="04_halaman_awal.png")
-        print("Proses otomatis selesai!")
+        print("Lewati Selesai")
+        #Close banner
+        await page.mouse.click(593, 530)
+        await page.wait_for_timeout(2000)
+        await page.screenshot(path="05_halaman_awal.png")
+        print("Close banner selesai")
         await browser.close()
 
 if __name__ == "__main__":
