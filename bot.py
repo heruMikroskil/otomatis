@@ -45,8 +45,8 @@ async def main():
         print("Mengisi formulir...")
         # await page.fill("#Nama", "user_anda")
         # await page.fill("#Email", "email_anda")
-        await page.fill("#profile_name", "Player009")
-        await page.fill("#profile_email", "o.player009@gmail.com")
+        await page.fill("#profile_name", "Player010")
+        await page.fill("#profile_email", "o.player010@gmail.com")
         await page.fill("#profile_company_name", "Indonesia")
         await page.fill("#profile_occupation", "Boss")
         await page.fill("#profile_phone_number", "082288997788")
@@ -82,7 +82,16 @@ async def main():
         await page.screenshot(path="06.png")
         print("Masuk Hall selesai")
 
-
+        #Filter booth
+        await page.mouse.click(420, 30)
+        await page.wait_for_timeout(1000)
+        await page.screenshot(path="07.png")
+        
+        await page.keyboard.type("UKPBJ KEMENTERIAN IM")
+        await page.wait_for_timeout(1000)
+        await page.screenshot(path="08.png")
+        await page.keyboard.press("Enter")
+        await page.screenshot(path="09.png")
         
         await browser.close()
 
