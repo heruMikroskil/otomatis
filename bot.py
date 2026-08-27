@@ -69,8 +69,12 @@ async def main():
 
         # Panggil fungsi klik berdasarkan teks di dalam gambar/canvas
         #await click_text_on_image(page, "Lewati")
+        
         await page.mouse.click(360, 1008)
         await page.wait_for_timeout(2000)
+        
+        await page.mouse.click(512, 1230)
+        await page.wait_for_timeout(3000)
         await page.screenshot(path="04.png")
         print("Lewati Selesai")
         #Close banner
@@ -83,8 +87,7 @@ async def main():
         await page.wait_for_timeout(2000)
         #await page.screenshot(path="06.png")
         print("Masuk Hall selesai")
-        await page.wait_for_timeout(3000)
-        await page.mouse.click(512, 1230)
+        
 
         #Filter booth
         await page.mouse.click(420, 30)
