@@ -45,8 +45,8 @@ async def main():
         print("Mengisi formulir...")
         # await page.fill("#Nama", "user_anda")
         # await page.fill("#Email", "email_anda")
-        await page.fill("#profile_name", "Player004")
-        await page.fill("#profile_email", "o.player004@gmail.com")
+        await page.fill("#profile_name", "Player005")
+        await page.fill("#profile_email", "o.player005@gmail.com")
         await page.fill("#profile_company_name", "Indonesia")
         await page.fill("#profile_occupation", "Boss")
         await page.fill("#profile_phone_number", "082288997788")
@@ -66,7 +66,7 @@ async def main():
         await asyncio.sleep(3) # Tunggu elemen/canvas termuat sempurna
 
         # Panggil fungsi klik berdasarkan teks di dalam gambar/canvas
-        await click_text_on_image(page, "Mengerti")
+        await click_text_on_image(page, "Lewati")
         await page.wait_for_timeout(2000)
         await page.screenshot(path="04_halaman_awal.png")
         print("Proses otomatis selesai!")
