@@ -5,7 +5,7 @@ from PIL import Image
 
 async def click_text_on_image(page, target_text):
     # 1. Simpan screenshot sementara untuk dianalisis
-    screenshot_path = "temp_page.png"
+    screenshot_path = "ocr.png"
     await page.screenshot(path=screenshot_path)
 
     # 2. Baca gambar menggunakan Tesseract OCR untuk mendapatkan data posisi teks
@@ -45,8 +45,8 @@ async def main():
         print("Mengisi formulir...")
         # await page.fill("#Nama", "user_anda")
         # await page.fill("#Email", "email_anda")
-        await page.fill("#profile_name", "Player005")
-        await page.fill("#profile_email", "o.player005@gmail.com")
+        await page.fill("#profile_name", "Player006")
+        await page.fill("#profile_email", "o.player006@gmail.com")
         await page.fill("#profile_company_name", "Indonesia")
         await page.fill("#profile_occupation", "Boss")
         await page.fill("#profile_phone_number", "082288997788")
@@ -61,7 +61,7 @@ async def main():
         await page.click("button[type='submit']")
 
         # Tunggu proses pemuatan setelah klik (opsional)
-        await page.wait_for_timeout(2000)
+        await page.wait_for_timeout(5000)
         await page.screenshot(path="03_halaman_awal.png")
         await asyncio.sleep(3) # Tunggu elemen/canvas termuat sempurna
 
