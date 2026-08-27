@@ -33,7 +33,7 @@ async def click_text_on_image(page, target_text):
 
 async def main():
     async with async_playwright() as p:
-        nama = "Player18"
+        nama = "Player19"
         email = "o." + nama + "@gmail.com"
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page(viewport={'width': 720, 'height': 1280})
@@ -76,30 +76,30 @@ async def main():
         #Close banner
         await page.mouse.click(593, 530)
         await page.wait_for_timeout(2000)
-        await page.screenshot(path="05.png")
+        #await page.screenshot(path="05.png")
         print("Close banner selesai")
         #Masukk Hall
         await page.mouse.click(277, 654)
         await page.wait_for_timeout(2000)
-        await page.screenshot(path="06.png")
+        #await page.screenshot(path="06.png")
         print("Masuk Hall selesai")
 
         #Filter booth
         await page.mouse.click(420, 30)
         await page.wait_for_timeout(1000)
-        await page.screenshot(path="07.png")
+        #await page.screenshot(path="07.png")
         
         await page.keyboard.type("UKPBJ KEMENTERIAN IM")
         await page.wait_for_timeout(1000)
-        await page.screenshot(path="08.png")
+        #await page.screenshot(path="08.png")
         await page.keyboard.press("Enter")
         await page.wait_for_timeout(2000)
-        await page.screenshot(path="09.png")
+        #await page.screenshot(path="09.png")
 
         #Whatsapp
         await page.mouse.click(370, 770)
         await page.wait_for_timeout(2000)
-        await page.screenshot(path="10.png")
+        #await page.screenshot(path="10.png")
 
         #Live chat
         await page.mouse.click(360, 669)
@@ -107,15 +107,16 @@ async def main():
         await page.screenshot(path="11.png")
         await page.mouse.click(620, 1236)
         #aktif aktif
-        await page.wait_for_timeout(2000)
+        await page.wait_for_timeout(3000)
         await page.mouse.click(516, 1223)
         #Ketik pesan
-        await page.wait_for_timeout(1000)
+        await page.wait_for_timeout(2000)
         await page.keyboard.type("Halo saya"+nama)
+        await page.screenshot(path="12.png")
         await page.wait_for_timeout(1000)
         await page.keyboard.press("Enter")
         await page.wait_for_timeout(1000)
-        await page.screenshot(path="12.png")
+        await page.screenshot(path="13.png")
         await browser.close()
 
 if __name__ == "__main__":
