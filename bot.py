@@ -73,8 +73,7 @@ async def main():
         await page.mouse.click(360, 1008)
         await page.wait_for_timeout(2000)
         
-        await page.mouse.click(512, 1230)
-        await page.wait_for_timeout(3000)
+       
         await page.screenshot(path="04.png")
         print("Lewati Selesai")
         #Close banner
@@ -82,6 +81,8 @@ async def main():
         await page.wait_for_timeout(2000)
         #await page.screenshot(path="05.png")
         print("Close banner selesai")
+        await page.mouse.click(512, 1230)
+        await page.wait_for_timeout(3000)
         #Masukk Hall
         await page.mouse.click(277, 654)
         await page.wait_for_timeout(2000)
