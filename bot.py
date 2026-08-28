@@ -1,40 +1,23 @@
 import asyncio
 from playwright.async_api import async_playwright
 import pytesseract
+import random as r
 from PIL import Image
 
-async def click_text_on_image(page, target_text):
-    # 1. Simpan screenshot sementara untuk dianalisis
-    screenshot_path = "ocr.png"
-    await page.screenshot(path=screenshot_path)
+def getHP():
+    hpAwalan = ["0852", "0822", "0853", "0857", "0813", "0822", "0823"]
+    n1 = r.randint(1, 9999)
+    n1 = f"{n1:04d}"
+    n2 = r.randint(1, 9999)
+    n2 = f"{n2:04d}"
+    noHP = hpAwalan[r.randint(0,6)] + n1 + n2
+    return noHP
 
-    # 2. Baca gambar menggunakan Tesseract OCR untuk mendapatkan data posisi teks
-    img = Image.open(screenshot_path)
-    ocr_data = pytesseract.image_to_data(img, output_type=pytesseract.Output.DICT)
-
-    found = False
-    # 3. Cari kata target di dalam hasil OCR
-    for i in range(len(ocr_data['text'])):
-        text = ocr_data['text'][i].strip()
-        if target_text.lower() in text.lower() and int(ocr_data['conf'][i]) > 30: # Tingkat akurasi > 30%
-            # Hitung titik tengah koordinat (X, Y) dari teks
-            x = ocr_data['left'][i] + (ocr_data['width'][i] // 2)
-            y = ocr_data['top'][i] + (ocr_data['height'][i] // 2)
-            
-            print(f"Teks '{target_text}' ditemukan pada koordinat X:{x}, Y:{y}. Melakukan klik...")
-            
-            # 4. Klik koordinat layar tersebut
-            await page.mouse.click(x, y)
-            found = True
-            break
-
-    if not found:
-        print(f"Teks '{target_text}' tidak ditemukan pada gambar/canvas.")
-
-async def main(n):
+async def main(nama, email, c):
     async with async_playwright() as p:
-        nama = "Player_" + str(n)
-        email = "Thu." + nama + "@gmail.com"
+        #nama = "Player_" + str(n)
+        #email = "Thu." + nama + "@gmail.com"
+        noHP = getHP()
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page(viewport={'width': 720, 'height': 1280})
 
@@ -49,9 +32,9 @@ async def main(n):
         # await page.fill("#Email", "email_anda")
         await page.fill("#profile_name", nama)
         await page.fill("#profile_email", email)
-        await page.fill("#profile_company_name", "Indonesia")
-        await page.fill("#profile_occupation", "Boss")
-        await page.fill("#profile_phone_number", "082288997788")
+        await page.fill("#profile_company_name", "Kementerian Imigrasi dan Pemasyarakatan")
+        await page.fill("#profile_occupation", "Ditjen Imigrasi dan Pemasyarakatan")
+        await page.fill("#profile_phone_number", noHP)
         await page.fill("#profile_password", "Admin123")
         await page.fill("#profile_password_confirmation", "Admin123")
         await page.check("input.form-check-input")
@@ -106,7 +89,8 @@ async def main(n):
         #Whatsapp
         await page.mouse.click(370, 770)
         await page.wait_for_timeout(2000)
-        #await page.screenshot(path="10.png")
+        namaGambar = f"{c:03d}.png"
+        await page.screenshot(path=namaGambar)
 
         #Live chat
         await page.mouse.click(360, 669)
@@ -131,5 +115,32 @@ async def main(n):
         await browser.close()
 
 if __name__ == "__main__":
-    for i in range (150):
-     asyncio.run(main(i))
+    contacts = [
+    {
+        "nama": "IRWAN PURNAMA",
+        "email": "irwan.purnama@kemenimipas.go.id"
+    },
+    {
+        "nama": "FATIKA SINTAWATI",
+        "email": "12.fatika.sintawati.xxiv@gmail.com"
+    },
+    {
+        "nama": "ARICO GINTING",
+        "email": "19.arico.ginting.xxiv@gmail.com"
+    },
+    {
+        "nama": "AURA ZAHRA PUTERI SUHENDI",
+        "email": "22.aurazahraputerisuhendi.xxiv@gmail.com"
+    },
+    {
+        "nama": "A.A. AGUS HERYANTO",
+        "email": "a.a.agus.heryanto95@kemenimipas.go.id"
+    }
+    ]
+    c=0
+    for contact in contacts:
+        nama = contact["nama"]
+        email = contact["email"]
+        c+=1
+        #print(f"Proses: {nama} ({email})")
+        asyncio.run(main(nama, email, c))
